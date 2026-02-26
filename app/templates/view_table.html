@@ -1,0 +1,81 @@
+<!-- code is helped by ChatGPT -->
+{% extends "base.html" %}
+{% block title %}{{ table_name|capitalize }} Data{% endblock %}
+{% block content %}
+  <h1>{{ table_name|capitalize }} Data</h1>
+  
+  {% if table_name == 'worker_category' %}
+    <ul class="list-group">
+      {% for entry in data_entries %}
+        <li class="list-group-item">
+          <strong>Year:</strong> {{ entry.year }}<br>
+          <strong>Category Name:</strong> {{ entry.category_name }}
+        </li>
+      {% else %}
+        <li class="list-group-item">No data available</li>
+      {% endfor %}
+    </ul>
+  
+  {% elif table_name == 'disability_status' %}
+    <ul class="list-group">
+      {% for entry in data_entries %}
+        <li class="list-group-item">
+          <strong>ID:</strong> {{ entry.id }}<br>
+          <strong>Disability Status:</strong> {{ entry.disability_status }}<br>
+          <strong>Weighted Count:</strong> {{ entry.weighted_count }}<br>
+          <strong>Year:</strong> {{ entry.year }}<br>
+          <strong>Category Name:</strong> {{ entry.category_name }}
+        </li>
+      {% else %}
+        <li class="list-group-item">No data available</li>
+      {% endfor %}
+    </ul>
+  
+  {% elif table_name == 'age_band' %}
+    <ul class="list-group">
+      {% for entry in data_entries %}
+        <li class="list-group-item">
+          <strong>ID:</strong> {{ entry.id }}<br>
+          <strong>Age Band:</strong> {{ entry.age_band }}<br>
+          <strong>Year:</strong> {{ entry.year }}<br>
+          <strong>Category Name:</strong> {{ entry.category_name }}
+        </li>
+      {% else %}
+        <li class="list-group-item">No data available</li>
+      {% endfor %}
+    </ul>
+  
+  {% elif table_name == 'skill_level' %}
+    <ul class="list-group">
+      {% for entry in data_entries %}
+        <li class="list-group-item">
+          <strong>ID:</strong> {{ entry.id }}<br>
+          <strong>Skill Level:</strong> {{ entry.skill_level }}<br>
+          <strong>Weighted Count:</strong> {{ entry.weighted_count }}<br>
+          <strong>Year:</strong> {{ entry.year }}<br>
+          <strong>Category Name:</strong> {{ entry.category_name }}
+        </li>
+      {% else %}
+        <li class="list-group-item">No data available</li>
+      {% endfor %}
+    </ul>
+  
+  {% elif table_name == 'sex' %}
+    <ul class="list-group">
+      {% for entry in data_entries %}
+        <li class="list-group-item">
+          <strong>ID:</strong> {{ entry.id }}<br>
+          <strong>Sex:</strong> {{ entry.sex }}<br>
+          <strong>Weighted Count:</strong> {{ entry.weighted_count }}<br>
+          <strong>Year:</strong> {{ entry.year }}<br>
+          <strong>Category Name:</strong> {{ entry.category_name }}
+        </li>
+      {% else %}
+        <li class="list-group-item">No data available</li>
+      {% endfor %}
+    </ul>
+  
+  {% else %}
+    <p>No display method defined for this table.</p>
+  {% endif %}
+{% endblock %}

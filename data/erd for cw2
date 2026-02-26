@@ -1,0 +1,59 @@
+erDiagram
+    %% Tables
+    Regions {
+        int RegionID PK
+        string RegionName
+    }
+
+    Years {
+        int YearID PK
+        int Year
+    }
+
+    Categories {
+        int CategoryID PK
+        string CategoryName
+    }
+
+    EmploymentData {
+        int DataID PK
+        int YearID FK
+        int RegionID FK
+        int CategoryID FK
+        string Industry
+        int WeightedCount
+    }
+
+    Demographics {
+        int DemographicID PK
+        int DataID FK
+        string Gender
+        string Ethnicity
+        string DisabilityStatus
+    }
+
+    Filters {
+        int FilterID PK
+        string RegionName
+        int Year
+        string CategoryName
+        string Industry
+        string Gender
+        string Ethnicity
+        string DisabilityStatus
+    }
+
+    Charts {
+        int ChartID PK
+        int FilterID FK
+        string ChartType
+        text ChartData
+    }
+
+    %% Relationships
+    Regions ||--o{ EmploymentData : "has"
+    Years ||--o{ EmploymentData : "has"
+    Categories ||--o{ EmploymentData : "has"
+    EmploymentData ||--o{ Demographics : "has"
+    Filters ||--o{ Charts : "generates"
+    Filters ||--o{ EmploymentData : "applies to"

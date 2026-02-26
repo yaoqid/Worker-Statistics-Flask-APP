@@ -1,0 +1,22 @@
+setuptools
+setuptools-scm
+
+pandas
+openpyxl
+plotly
+
+# For the Flask app in weeks 6 to 10
+flask
+flask_sqlalchemy
+flask-wtf
+flask-migrate
+flask-testing  
+pytest-flask  
+ 
+# For the testing
+pytest
+selenium
+pytest-cov
+webdriver-manager
+requests
+

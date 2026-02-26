@@ -1,0 +1,18 @@
+# Basic project information
+[project]
+name = "comp0034-coursework2"
+version = "2025.3.26"
+readme = "README.md"
+
+[build-system]
+requires = ["setuptools",  "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-rA -v"
+testpaths = ["."]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.setuptools.packages]
+find = { include = ["app*", "data*"] }  

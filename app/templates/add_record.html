@@ -1,0 +1,21 @@
+<!-- code is helped by ChatGPT -->
+{% extends "base.html" %}
+{% block title %}Add {{ table_name|capitalize }} Record{% endblock %}
+{% block content %}
+  <h1>Add {{ table_name|capitalize }} Record</h1>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    {% for field in form %}
+      {% if field.type != 'CSRFTokenField' and field.type != 'SubmitField' %}
+        <div class="mb-3">
+          {{ field.label(class="form-label") }}
+          {{ field(class="form-control") }}
+          {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+  </form>
+{% endblock %}

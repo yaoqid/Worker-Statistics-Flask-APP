@@ -1,0 +1,27 @@
+<!-- code is helped by ChatGPT -->
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+  <h1>Admin Dashboard</h1>
+  <p>Select an option below:</p>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <a href="{{ url_for('main.modify_table', table_name='disability_status') }}">Modify Disability Status Data</a>
+    </li>
+    <li class="list-group-item">
+      <a href="{{ url_for('main.modify_table', table_name='age_band') }}">Modify Age Band Data</a>
+    </li>
+    <li class="list-group-item">
+      <a href="{{ url_for('main.modify_table', table_name='skill_level') }}">Modify Skill Level Data</a>
+    </li>
+    <li class="list-group-item">
+      <a href="{{ url_for('main.modify_table', table_name='sex') }}">Modify Sex Data</a>
+    </li>
+    <li class="list-group-item">
+      <a href="{{ url_for('main.modification_log') }}">View Modification Logs</a>
+    </li>
+    <li class="list-group-item">
+      <a href="{{ url_for('main.manage_entries') }}">Manage logs and feedback</a>
+    </li>
+  </ul>
+{% endblock %}

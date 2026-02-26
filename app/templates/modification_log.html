@@ -1,0 +1,18 @@
+<!-- code is helped by ChatGPT -->
+{% extends "base.html" %}
+{% block title %}Modification Log{% endblock %}
+{% block content %}
+  <h1>Modification Log</h1>
+  <ul class="list-group">
+    {% for log in logs %}
+      <li class="list-group-item">
+        <strong>Time:</strong> {{ log.timestamp }}<br>
+        <strong>Table:</strong> {{ log.table_name }}<br>
+        <strong>Action:</strong> {{ log.modification_type }}<br>
+        <strong>Description:</strong> {{ log.description }}
+      </li>
+    {% else %}
+      <li class="list-group-item">No logs available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

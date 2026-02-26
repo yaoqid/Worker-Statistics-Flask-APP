@@ -1,0 +1,60 @@
+<!-- code is helped by ChatGPT -->
+{% extends "base.html" %}
+{% block title %}Data Charts{% endblock %}
+{% block content %}
+  <h1>Data Charts</h1>
+  
+  <!-- Chart type selection form (GET method) -->
+  <form method="get" action="{{ url_for('main.charts') }}">
+    <div class="mb-3">
+      <label for="chartTypeSelect" class="form-label">Select Chart Type:</label>
+      <select name="chart_type" id="chartTypeSelect" class="form-select">
+        <option value="disability" {% if chart_type == "disability" %}selected{% endif %}>Disability Status</option>
+        <option value="skill" {% if chart_type == "skill" %}selected{% endif %}>Skill Level</option>
+        <option value="gender" {% if chart_type == "gender" %}selected{% endif %}>Gender</option>
+        <option value="skill_trend" {% if chart_type == "skill_trend" %}selected{% endif %}>Skill Trend Over Years</option>
+      </select>
+    </div>
+    {% if chart_type == "skill_trend" %}
+      <!-- Dropdown for selecting skill when chart type is skill_trend -->
+      <div class="mb-3">
+        <label for="skillSelect" class="form-label">Select Skill Level:</label>
+        <select name="skill" id="skillSelect" class="form-select">
+          {% for s in skills %}
+            <option value="{{ s }}" {% if selected_skill == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    {% else %}
+      <!-- Year dropdown for other chart types -->
+      <div class="mb-3">
+        <label for="yearSelect" class="form-label">Select Year:</label>
+        <select name="year" id="yearSelect" class="form-select">
+          {% for y in years %}
+            <option value="{{ y }}" {% if chart_year and y == chart_year|int %}selected{% endif %}>{{ y }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Update Chart</button>
+  </form>
+  
+  <!-- Display the chart -->
+  <div class="mt-4">
+    {{ chart_html | safe }}
+  </div>
+  
+  <!-- Feedback form (POST) -->
+  <h2 class="mt-5">Feedback</h2>
+  {% if chart_type == "skill_trend" %}
+    <form method="post" action="{{ url_for('main.charts', chart_type=chart_type, skill=selected_skill) }}">
+  {% else %}
+    <form method="post" action="{{ url_for('main.charts', chart_type=chart_type, year=chart_year) }}">
+  {% endif %}
+    <div class="mb-3">
+      <label for="feedback" class="form-label">Please leave your feedback:</label>
+      <textarea name="feedback" id="feedback" rows="3" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-secondary">Submit Feedback</button>
+  </form>
+{% endblock %}

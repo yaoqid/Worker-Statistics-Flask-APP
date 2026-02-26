@@ -1,0 +1,108 @@
+<!-- code is helped by ChatGPT -->
+{% extends "base.html" %}
+{% block title %}Modify {{ table_name|capitalize }} Data{% endblock %}
+{% block content %}
+  <h1>Modify {{ table_name|capitalize }} Data</h1>
+  <a class="btn btn-primary mb-3" href="{{ url_for('main.add_record', table_name=table_name) }}">Add New Record</a>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        {% if table_name == 'worker_category' %}
+          <th>Year</th>
+          <th>Category Name</th>
+        {% elif table_name == 'disability_status' %}
+          <th>ID</th>
+          <th>Disability Status</th>
+          <th>Weighted Count</th>
+          <th>Year</th>
+          <th>Category Name</th>
+          <th>Actions</th>
+        {% elif table_name == 'age_band' %}
+          <th>ID</th>
+          <th>Age Band</th>
+          <th>Year</th>
+          <th>Category Name</th>
+          <th>Actions</th>
+        {% elif table_name == 'skill_level' %}
+          <th>ID</th>
+          <th>Skill Level</th>
+          <th>Weighted Count</th>
+          <th>Year</th>
+          <th>Category Name</th>
+          <th>Actions</th>
+        {% elif table_name == 'sex' %}
+          <th>ID</th>
+          <th>Sex</th>
+          <th>Weighted Count</th>
+          <th>Year</th>
+          <th>Category Name</th>
+          <th>Actions</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% set row_class = {
+          'worker_category': 'table-primary',
+          'disability_status': 'table-success',
+          'age_band': 'table-warning',
+          'skill_level': 'table-info',
+          'sex': 'table-danger'
+      }[table_name] %}
+      {% for entry in data_entries %}
+      <tr class="{{ row_class }}">
+        {% if table_name == 'worker_category' %}
+          <td>{{ entry.year }}</td>
+          <td>{{ entry.category_name }}</td>
+        {% elif table_name == 'disability_status' %}
+          <td>{{ entry.id }}</td>
+          <td>{{ entry.disability_status }}</td>
+          <td>{{ entry.weighted_count }}</td>
+          <td>{{ entry.year }}</td>
+          <td>{{ entry.category_name }}</td>
+          <td>
+            <form action="{{ url_for('main.delete_record', table_name=table_name, record_id=entry.id) }}" method="post" style="display:inline;">
+              <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+            </form>
+          </td>
+        {% elif table_name == 'age_band' %}
+          <td>{{ entry.id }}</td>
+          <td>{{ entry.age_band }}</td>
+          <td>{{ entry.year }}</td>
+          <td>{{ entry.category_name }}</td>
+          <td>
+            <form action="{{ url_for('main.delete_record', table_name=table_name, record_id=entry.id) }}" method="post" style="display:inline;">
+              <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+            </form>
+          </td>
+        {% elif table_name == 'skill_level' %}
+          <td>{{ entry.id }}</td>
+          <td>{{ entry.skill_level }}</td>
+          <td>{{ entry.weighted_count }}</td>
+          <td>{{ entry.year }}</td>
+          <td>{{ entry.category_name }}</td>
+          <td>
+            <form action="{{ url_for('main.delete_record', table_name=table_name, record_id=entry.id) }}" method="post" style="display:inline;">
+              <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+            </form>
+          </td>
+        {% elif table_name == 'sex' %}
+          <td>{{ entry.id }}</td>
+          <td>{{ entry.sex }}</td>
+          <td>{{ entry.weighted_count }}</td>
+          <td>{{ entry.year }}</td>
+          <td>{{ entry.category_name }}</td>
+          <td>
+            <form action="{{ url_for('main.delete_record', table_name=table_name, record_id=entry.id) }}" method="post" style="display:inline;">
+              <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+            </form>
+          </td>
+        {% endif %}
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6">No data available</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

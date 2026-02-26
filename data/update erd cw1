@@ -1,0 +1,37 @@
+erDiagram
+    Regions {
+        int RegionID PK
+        string RegionName
+    }
+
+    Years {
+        int YearID PK
+        int Year
+    }
+
+    Categories {
+        int CategoryID PK
+        string CategoryName
+    }
+
+    EmploymentData {
+        int DataID PK
+        int YearID FK
+        int RegionID FK
+        string Category
+        string Industry
+        int WeightedCount
+    }
+
+    Demographics {
+        int DemographicID PK
+        int DataID FK
+        string Gender
+        string Ethnicity
+        string DisabilityStatus
+    }
+
+    Regions ||--o{ EmploymentData : "has"
+    Categories ||--o{ EmploymentData : "has"
+    Years ||--o{ EmploymentData : "has"
+    EmploymentData ||--o{ Demographics : "has"

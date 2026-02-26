@@ -1,0 +1,118 @@
+classDiagram
+    %% Authentication Package
+    namespace AuthenticationPackage {
+        class Admin {
+            String username
+            String password
+            manage_original_data()
+            apply_filter(filters: FilterPackage.Filter)
+        }
+
+        class User {
+            String username
+            String password
+            apply_filter(filters: FilterPackage.Filter)
+        }
+
+        class AuthenticationController {
+            Admin admin
+            User user
+            verify_authentication(entity)
+        }
+    }
+
+    namespace ERDDataPackage {
+        class EmploymentData {
+            int DataID PK
+            int YearID FK
+            int RegionID FK
+            String Category
+            String Industry
+            int WeightedCount
+        }
+
+        class Regions {
+            int RegionID PK
+            String RegionName
+        }
+
+        class Years {
+            int YearID PK
+            int Year
+        }
+
+        class Categories {
+            int CategoryID PK
+            String CategoryName
+        }
+
+        class Demographics {
+            int DemographicID PK
+            int DataID FK
+            String Gender
+            String Ethnicity
+            String DisabilityStatus
+        }
+    }
+
+    namespace FilterPackage {
+        class Filter {
+            String region
+            int year
+            String category
+            String industry
+            String gender
+            String ethnicity
+            String disability_status
+            validate_filter(filter: Filter) : boolean
+        }
+
+        class FilterController {
+            Filter filter
+            apply_filter(data: ERDDataPackage.EmploymentData, filter: Filter) : EmploymentData
+            validate_filter(filter: Filter) : boolean
+        }
+    }
+
+    namespace ChartPackage {
+        class ChartController {
+            FilterPackage.Filter filter
+            Chart chart
+            generate_filter_data()
+            create_line_chart(List filters)
+            create_bar_chart(List filters)
+            create_pie_chart(List filters)
+        }
+
+        class Chart {
+            String chart_type
+            List~EmploymentData~ chart_data
+        }
+    }
+
+    namespace SavePackage {
+        class Save {
+            save_chart(chart: Chart, filepath: String)
+        }
+
+        class Export {
+            export_data(data: ERDDataPackage.EmploymentData, filepath: String)
+        }
+    }
+
+    %% Relationships
+    Admin --> EmploymentData
+    Admin --> Filter
+    User --> Filter
+    AuthenticationController --> Admin
+    AuthenticationController --> User
+    FilterController --> Filter
+    FilterController --> EmploymentData
+    ChartController --> Chart
+    ChartController --> Filter
+    Chart --> Save
+    EmploymentData --> Export
+    EmploymentData --> Regions
+    EmploymentData --> Years
+    EmploymentData --> Categories
+    EmploymentData --> Demographics

@@ -1,0 +1,31 @@
+<!-- code is helped by ChatGPT -->
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <h1>Welcome to My Flask App</h1>
+  <p>Please select an option from the navigation bar to view or modify data.</p>
+  
+  <h2>London News</h2>
+  {% if news %}
+    <ul class="list-group">
+      {% for article in news %}
+        <li class="list-group-item">
+          {% if article.url %}
+            <a href="{{ article.url }}" target="_blank"><strong>{{ article.title }}</strong></a>
+          {% else %}
+            <strong>{{ article.title }}</strong>
+          {% endif %}
+          <br>
+          {% if article.published_at %}
+            <small>Published: {{ article.published_at }}</small>
+          {% endif %}
+          {% if article.description %}
+            <p>{{ article.description }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No news data available.</p>
+  {% endif %}
+{% endblock %}
